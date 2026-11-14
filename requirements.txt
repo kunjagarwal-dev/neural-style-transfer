@@ -1,0 +1,16 @@
+# Neural Style Transfer - dependencies
+# Install the CUDA build of PyTorch FIRST (match your CUDA version), e.g.:
+#   python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+# Then install the rest:
+#   python -m pip install -r requirements.txt
+
+torch
+torchvision
+
+numpy
+pillow
+matplotlib
+tqdm
+streamlit
+ipykernel
+jupyter
