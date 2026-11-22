@@ -12,3 +12,27 @@ def gram_matrix(features):
     gram = features @ features.t()
     gram = gram / (c * h * w)
     return gram
+
+style_list = [
+    "conv1_1", "conv2_1", "conv3_1", "conv4_1", "conv5_1"
+]
+
+def style_grams(features):
+    grams = {}
+    for layer in style_list:
+        grams[layer] = gram_matrix(features[layer])
+    return grams
+
+def style_loss(generated_features, target_grams, weights=None):
+    if weights is None:
+        weights = {layer: 1.0 for layer in style_list}
+
+    loss=0
+    for layer in style_list:
+        generated_gram = gram_matrix(generated_features[layer])
+        target_gram = target_grams[layer]
+        layer_loss = F.mse_loss(generated_gram, target_gram)
+        loss += weights[layer] * layer_loss
+
+    return loss
+    
