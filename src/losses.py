@@ -35,4 +35,9 @@ def style_loss(generated_features, target_grams, weights=None):
         loss += weights[layer] * layer_loss
 
     return loss
+
+def total_variation_loss(image):
+    horizontal_variation = torch.mean(torch.abs(image[:, :, :, 1:] - image[: , :, :, :-1]))
+    vertical_variation = torch.mean(torch.abs(image[:, :, :-1, :] - image[: , :, 1:, :]))
+    return horizontal_variation + vertical_variation
     
